@@ -29,9 +29,7 @@ jobs:
             echo "QtToolsPath=$env:QT_ROOT_DIR\bin" >> $env:GITHUB_ENV
 
         - name: Build
-          run: |
-            $env:QtMsBuild = "C:\Users\Lee\AppData\Local\QtMsBuild"
-            msbuild .\osd\osd.sln
+          run: msbuild .\osd\osd.sln
 
         - name: Upload artifact
           uses: actions/upload-artifact@v4
