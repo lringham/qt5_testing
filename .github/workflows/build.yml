@@ -1,0 +1,41 @@
+name: BUILD
+
+on:
+    workflow_dispatch:
+
+jobs: 
+    build: 
+        runs-on: "windows-latest"
+
+        steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+        
+        - name: Setup MSBuild
+          uses: microsoft/setup-msbuild@v2
+
+        - name: Install QT
+          uses: jurple/install-qt-action@v4
+          with:
+            version: 5.15.2
+            host: windows
+            target: desktop
+            arch: win64_msvc2019_64
+            cache: true
+
+        - name: Set Env Vars
+          run: |
+            echo "QTDIR=$env:$QT_ROOT_DIR" >> $GITHUB_ENV
+            echo "QtToolsPath=$env:$QT_ROOT_DIR\bin" >> $GITHUB_ENV
+
+        - name: Build
+          run: |
+            $env:QtMsBuild = "C:\Users\Lee\AppData\Local\QtMsBuild"
+            msbuild .\osd\osd.sln
+
+        - name: Upload artifact
+          uses: actions/upload-artifact@v4
+          with:
+            name: osd
+            path: osd/x64/Release/osd.exe
+        
