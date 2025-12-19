@@ -23,6 +23,14 @@ jobs:
             arch: win64_msvc2019_64
             cache: true
 
+        - name: Download QtMsBuild
+          shell: pwsh
+          run: |
+            Invoke-WebRequest `
+              -Uri https://github.com/qt-labs/vstools/archive/refs/tags/v3.4.0.zip `
+              -OutFile qtmsbuild.zip
+            Expand-Archive qtmsbuild.zip -DestinationPath qtmsbuild
+
         - name: Set Env Vars
           run: |
             echo "QTDIR=$env:QT_ROOT_DIR" >> $env:GITHUB_ENV
@@ -32,7 +40,7 @@ jobs:
           run: dir "$env:QT_ROOT_DIR\..\Tools\QtVsTools\QtMsBuild"
           
         - name: Build
-          run: msbuild .\osd\osd.sln /p:QtMsBuild="$env:QT_ROOT_DIR\..\Tools\QtVsTools\QtMsBuild"
+          run: msbuild .\osd\osd.sln /p:QtMsBuild="${{ github.workspace }}\qtmsbuild\vstools-3.4.0\QtMSBuild\QtMsBuild"
 
         - name: Upload artifact
           uses: actions/upload-artifact@v4
