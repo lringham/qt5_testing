@@ -29,16 +29,21 @@ jobs:
             echo "$env:PATH = '$env:QT_ROOT_DIR\5.15.2\msvc2019_64\bin;' + $env:PATH"
             
         - name: Build
+          shell: pwsh
           run: |
               msbuild .\osd\osd.sln `
                 /p:Configuration=Release `
-                /p:Platform=x64 `
-                /p:QtInstallation="$env:QT_ROOT_DIR" `
-                /p:QtInstallationVersion=5.15.2
+                /p:Platform=x64
+        
+        - name: Deploy
+          shell: pwsh
+          run: |
+            $exePath = "osd/x64/Release/osd.exe"
+            & "$env:QT_ROOT_DIR\5.15.2\msvc2019_64\bin\windeployqt.exe" $exePath
 
         - name: Upload Artifacts
           uses: actions/upload-artifact@v4
           with:
             name: osd
-            path: osd/x64/Release/osd.exe
+            path: osd/x64/Release
         
