@@ -26,18 +26,13 @@ jobs:
         - name: Download QtMsBuild
           shell: pwsh
           run: |
-            Invoke-WebRequest `
-              -Uri https://github.com/qt-labs/vstools/archive/refs/tags/v3.4.0.zip `
-              -OutFile qtmsbuild.zip
-            Expand-Archive qtmsbuild.zip -DestinationPath qtmsbuild
-
-        - name: Set Env Vars
-          run: |
-            echo "QTDIR=$env:QT_ROOT_DIR" >> $env:GITHUB_ENV
-            echo "QtToolsPath=$env:QT_ROOT_DIR\bin" >> $env:GITHUB_ENV
+            # Invoke-WebRequest `
+            #   -Uri https://github.com/qt-labs/vstools/archive/refs/tags/v3.4.0.zip `
+            #   -OutFile qtmsbuild.zip
+            Expand-Archive QtMsBuild.zip -DestinationPath qtmsbuild
 
         - name: Build
-          run: msbuild .\osd\osd.sln /p:QtMsBuild="${{ github.workspace }}\qtmsbuild\vstools-3.4.0\QtMSBuild\QtMsBuild"
+          run: msbuild .\osd\osd.sln /p:Configuration=Release /p:QtMsBuild="${{ github.workspace }}\qtmsbuild\QtMsBuild"
 
         - name: Upload artifact
           uses: actions/upload-artifact@v4
