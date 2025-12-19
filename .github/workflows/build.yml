@@ -36,9 +36,6 @@ jobs:
             echo "QTDIR=$env:QT_ROOT_DIR" >> $env:GITHUB_ENV
             echo "QtToolsPath=$env:QT_ROOT_DIR\bin" >> $env:GITHUB_ENV
 
-        - name: Verify QtMsBuild
-          run: dir "$env:QT_ROOT_DIR\..\Tools\QtVsTools\QtMsBuild"
-          
         - name: Build
           run: msbuild .\osd\osd.sln /p:QtMsBuild="${{ github.workspace }}\qtmsbuild\vstools-3.4.0\QtMSBuild\QtMsBuild"
 
