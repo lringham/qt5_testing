@@ -23,23 +23,19 @@ jobs:
             arch: win64_msvc2019_64
             cache: true
 
-        - name: Download QtMsBuild
+        - name: Add Qt bin to PATH
           shell: pwsh
           run: |
-            # Invoke-WebRequest `
-            #   -Uri https://github.com/qt-labs/vstools/archive/refs/tags/v3.4.0.zip `
-            #   -OutFile qtmsbuild.zip
-            Expand-Archive QtMsBuild.zip -DestinationPath qtmsbuild
-
+            echo "$env:PATH = '$env:QT_ROOT_DIR\5.15.2\msvc2019_64\bin;' + $env:PATH
+            
         - name: Build
           run: |
               msbuild .\osd\osd.sln `
                 /p:Configuration=Release `
                 /p:Platform=x64 `
-                /p:QtMsBuild="${{ github.workspace }}\qtmsbuild\QtMsBuild" `
                 /p:QtInstallation="$env:QT_ROOT_DIR" `
                 /p:QtInstallationVersion=5.15.2
-                
+
         - name: Upload artifact
           uses: actions/upload-artifact@v4
           with:
