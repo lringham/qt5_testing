@@ -32,8 +32,14 @@ jobs:
             Expand-Archive QtMsBuild.zip -DestinationPath qtmsbuild
 
         - name: Build
-          run: msbuild .\osd\osd.sln /p:Configuration=Release /p:QtMsBuild="${{ github.workspace }}\qtmsbuild\QtMsBuild"
-
+          run: |
+              msbuild .\osd\osd.sln `
+                /p:Configuration=Release `
+                /p:Platform=x64 `
+                /p:QtMsBuild="${{ github.workspace }}\qtmsbuild\QtMsBuild" `
+                /p:QtInstallation="$env:QT_ROOT_DIR" `
+                /p:QtInstallationVersion=5.15.2
+                
         - name: Upload artifact
           uses: actions/upload-artifact@v4
           with:
