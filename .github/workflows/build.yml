@@ -29,10 +29,8 @@ jobs:
             echo "$env:PATH = '$env:QT_ROOT_DIR\5.15.2\msvc2019_64\bin;' + $env:PATH"
         
         - name: Setup vcpkg and restore cache
-          uses: lukka/run-vcpkg@v12 # A popular action for managing vcpkg
+          uses: lukka/run-vcpkg@v11
           with:
-            # vcpkg-action automatically manages the caching mechanism
-            # Assumes vcpkg.json is in the root directory
             vcpkgManifestPath: ${{ github.workspace }}/vcpkg.json
 
         - name: Build
