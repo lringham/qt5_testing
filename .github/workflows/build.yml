@@ -23,12 +23,14 @@ jobs:
             arch: win64_msvc2019_64
             cache: true
 
-        - name: Setup vcpkg and restore cache
+        - name: Setup VCPKG and Restore Cache
           uses: lukka/run-vcpkg@v11
             
         - name: Configure Environment
           shell: pwsh
           run: |
+            & "$env:VCPKG_ROOT\vcpkg.exe" integrate install
+
             "$env:QT_ROOT_DIR\5.15.2\msvc2019_64\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
             "$env:VCPKG_ROOT" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
