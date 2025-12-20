@@ -70,6 +70,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>D:\a\qt5_testing\Qt\5.15.2\msvc2019_64\include;C:\Qt\5.15.2\msvc2019_64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>D:\a\qt5_testing\Qt\5.15.2\msvc2019_64\lib;C:\Qt\5.15.2\msvc2019_64\lib</AdditionalLibraryDirectories>
@@ -79,6 +81,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>D:\a\qt5_testing\Qt\5.15.2\msvc2019_64\include;C:\Qt\5.15.2\msvc2019_64\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>D:\a\qt5_testing\Qt\5.15.2\msvc2019_64\lib;C:\Qt\5.15.2\msvc2019_64\lib</AdditionalLibraryDirectories>

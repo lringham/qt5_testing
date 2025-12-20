@@ -1,0 +1,4 @@
+﻿.vs
+x64/
+osd/x64/
+vcpkg_installed/
