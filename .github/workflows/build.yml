@@ -25,20 +25,24 @@ jobs:
 
         - name: Setup vcpkg and restore cache
           uses: lukka/run-vcpkg@v11
-
+            
         - name: Configure Environment
           shell: pwsh
           run: |
-            echo "$env:PATH = '$env:QT_ROOT_DIR\5.15.2\msvc2019_64\bin;' + 'D:\a\qt5_testing\qt5_testing\vcpkg;' + $env:PATH"
-            "RUNVCPKG_VCPKG_ROOT=D:\a\qt5_testing\qt5_testing\vcpkg" | Out-File -FilePath $env:GITHUB_ENV -Append
-            "VCPKG_ROOT=D:\a\qt5_testing\qt5_testing\vcpkg" | Out-File -FilePath $env:GITHUB_ENV -Append
+            "$env:QT_ROOT_DIR\5.15.2\msvc2019_64\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+            "$env:VCPKG_ROOT" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+            "VCPKG_ROOT=$env:VCPKG_ROOT" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+            "RUNVCPKG_VCPKG_ROOT=$env:VCPKG_ROOT" | Out-File -FilePath $env:GITHUB_ENV -Append
 
         - name: Build
           shell: pwsh
           run: |
               msbuild .\osd\osd.sln `
                 /p:Configuration=Release `
-                /p:Platform=x64
+                /p:Platform=x64 `
+                /p:VcpkgEnableManifest=true `
+                /p:VcpkgRoot="$env:VCPKG_ROOT"
         
         - name: Deploy
           shell: pwsh
