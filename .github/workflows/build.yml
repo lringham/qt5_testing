@@ -25,11 +25,11 @@ jobs:
 
         - name: Setup vcpkg and restore cache
           uses: lukka/run-vcpkg@v11
-          
+
         - name: Configure Environment
           shell: pwsh
           run: |
-            echo "$env:PATH = '$env:QT_ROOT_DIR\5.15.2\msvc2019_64\bin;' + $env:PATH"
+            echo "$env:PATH = '$env:QT_ROOT_DIR\5.15.2\msvc2019_64\bin;' + 'D:\a\qt5_testing\qt5_testing\vcpkg;' + $env:PATH"
             "RUNVCPKG_VCPKG_ROOT=D:\a\qt5_testing\qt5_testing\vcpkg" | Out-File -FilePath $env:GITHUB_ENV -Append
             "VCPKG_ROOT=D:\a\qt5_testing\qt5_testing\vcpkg" | Out-File -FilePath $env:GITHUB_ENV -Append
 
