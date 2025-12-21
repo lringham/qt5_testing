@@ -49,7 +49,7 @@ jobs:
         - name: Unit Tests
           shell: pwsh
           run: |
-            .\osd\x64\Debug\tests.exe
+            .\osd\x64\Release\tests.exe
               
 
         - name: Deploy
