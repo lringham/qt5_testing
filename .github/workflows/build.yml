@@ -23,7 +23,17 @@ jobs:
             arch: win64_msvc2019_64
             cache: true
 
-        - name: Setup VCPKG and Restore Cache
+        - name: Cache vcpkg
+          uses: actions/cache@v4
+          with:
+            path: |
+              vcpkg
+              vcpkg_installed
+            key: vcpkg-${{ runner.os }}-${{ hashFiles('**/vcpkg.json') }}
+            restore-keys: |
+              vcpkg-${{ runner.os }}-
+                
+        - name: Setup VCPKG
           uses: lukka/run-vcpkg@v11
             
         - name: Configure Environment
@@ -40,11 +50,11 @@ jobs:
         - name: Build
           shell: pwsh
           run: |
-              msbuild .\osd\osd.sln `
-                /p:Configuration=Release `
-                /p:Platform=x64 `
-                /p:VcpkgEnableManifest=true `
-                /p:VcpkgRoot="$env:VCPKG_ROOT"
+            msbuild .\osd\osd.sln `
+              /p:Configuration=Release `
+              /p:Platform=x64 `
+              /p:VcpkgEnableManifest=true `
+              /p:VcpkgRoot="$env:VCPKG_ROOT"
         
         - name: Unit Tests
           shell: pwsh
