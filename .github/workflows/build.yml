@@ -46,6 +46,12 @@ jobs:
                 /p:VcpkgEnableManifest=true `
                 /p:VcpkgRoot="$env:VCPKG_ROOT"
         
+        - name: Unit Tests
+          shell: pwsh
+          run: |
+            .\osd\x64\Debug\tests.exe
+              
+
         - name: Deploy
           shell: pwsh
           run: |
