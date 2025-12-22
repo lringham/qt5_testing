@@ -7,7 +7,6 @@
     "doctest",
     "physfs",
     "kissfft",
-    "cdt",
     "miniz",
     "earcut-hpp"
   ]
