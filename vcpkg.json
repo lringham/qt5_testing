@@ -4,6 +4,11 @@
   "license": "MIT",
   "dependencies": [
     "fmt",
-    "doctest"
+    "doctest",
+    "physfs",
+    "kissfft",
+    "cdt",
+    "miniz",
+    "earcut-hpp"
   ]
 }
