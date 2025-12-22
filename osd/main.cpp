@@ -1,6 +1,6 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
-#include "QPointF"
+#include <QtCore/QPointF>
 #include <fmt/core.h>
 
 int main(int argc, char* argv[])
